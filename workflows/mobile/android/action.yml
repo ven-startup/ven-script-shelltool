@@ -9,6 +9,6 @@ runs:
   steps:
     - name: GitFlow Event
       env:
-        GITHUB_REPOSITORY: ${{inputs.GITHUB_REF_NAME}}
+        GITHUB_REF_NAME: ${{inputs.GITHUB_REF_NAME}}
       shell: bash
       run: make gitflow_event
