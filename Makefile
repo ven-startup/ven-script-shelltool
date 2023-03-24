@@ -6,4 +6,7 @@ else
 SHELLTOOL_LOCATION = $(shell echo "$(PWD)/.shelltool")
 endif
 
--include $(SHELLTOOL_LOCATION)/makefiles/*.mk
+# -include $(SHELLTOOL_LOCATION)/makefiles/*.mk
+gitflow_event:
+	@export SHELLTOOL_LOCATION=$(SHELLTOOL_LOCATION) && \
+	$(SHELLTOOL_LOCATION)/scripts/gitflow.sh script_gitflow_validate_branch_name
