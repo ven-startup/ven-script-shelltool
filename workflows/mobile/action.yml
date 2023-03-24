@@ -11,4 +11,4 @@ runs:
       env:
         GITHUB_REF_NAME: ${{inputs.GITHUB_REF_NAME}}
       shell: bash
-      run: make gitflow_event
+      run: cd .shelltool && make gitflow_event
