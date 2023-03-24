@@ -1,0 +1,14 @@
+name: Firebase Distribution Action
+description: Deploy to Firebase Distribution
+inputs:
+  GITHUB_REF_NAME:
+    required: true
+    description: GITHUB_REF_NAME
+runs:
+  using: "composite"
+  steps:
+    - name: GitFlow Event
+      env:
+        GITHUB_REPOSITORY: ${{inputs.GITHUB_REF_NAME}}
+      shell: bash
+      run: make gitflow_event
