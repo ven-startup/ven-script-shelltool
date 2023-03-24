@@ -1,3 +1,3 @@
 gitflow_event:
-	@export SHELLTOOL_LOCATION=$(SHELLTOOL_LOCATION) && \
-	$(SHELLTOOL_LOCATION)/scripts/gitflow.sh script_gitflow_validate_branch_name
+	@export GIT_HOME=$(GIT_HOME) && \
+	$(GIT_HOME)/scripts/gitflow.sh script_gitflow_validate_branch_name
