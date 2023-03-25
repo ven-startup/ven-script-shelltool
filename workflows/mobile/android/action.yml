@@ -4,19 +4,40 @@ inputs:
   GITHUB_REF_NAME:
     required: true
     description: GITHUB_REF_NAME
+  FIREBASE_TOKEN:
+    required: true
+    description: FIREBASE_TOKEN
+  FIREBASE_APP_ID_ANDROID:
+    required: true
+    description: FIREBASE_APP_ID_ANDROID
 runs:
   using: "composite"
   steps:
-    - name: GitFlow Event
+    - name: Validating gitflow
       env:
         GITHUB_REF_NAME: ${{inputs.GITHUB_REF_NAME}}
       shell: bash
       run: cd .shelltool && make gitflow_event
     - name: Installing node
       uses: actions/setup-node@v1
-    - name: Install React Native CLI
+    - name: Installing React Native CLI
       shell: bash
-      run: cd .. && yarn global add react-native-cli
-    - name: Install yarn dependencies
+      run: yarn global add react-native-cli
+    - name: Installing dependencies
       shell: bash
       run: yarn install
+    - name: Building bundle
+      shell: bash
+      run: |
+        yarn react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+    - name: Building apk
+      shell: bash
+      run: |
+        cd android && ./gradlew assembleDebug
+    - name: Upload apk to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1
+      with:
+        appId: ${{secrets.FIREBASE_APP_ID_ANDROID}}
+        token: ${{secrets.FIREBASE_TOKEN}}
+        groups: android_testers
+        file: android/app/build/outputs/apk/debug/app-debug.apk
