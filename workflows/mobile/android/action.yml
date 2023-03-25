@@ -19,7 +19,9 @@ runs:
       shell: bash
       run: cd .shelltool && make gitflow_event
     - name: Installing node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
     - name: Installing React Native CLI
       shell: bash
       run: yarn global add react-native-cli
