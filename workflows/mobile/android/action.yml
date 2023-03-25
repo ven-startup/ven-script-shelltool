@@ -37,7 +37,7 @@ runs:
     - name: Upload apk to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
-        appId: ${{secrets.FIREBASE_APP_ID_ANDROID}}
-        token: ${{secrets.FIREBASE_TOKEN}}
+        appId: ${{inputs.FIREBASE_APP_ID_ANDROID}}
+        token: ${{inputs.FIREBASE_TOKEN}}
         groups: android_testers
         file: android/app/build/outputs/apk/debug/app-debug.apk
