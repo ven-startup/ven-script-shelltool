@@ -9,7 +9,7 @@ script_gitflow_validate_branch_name() {
   else
     echo -e "\e[31m[ERROR]\e[0m Incorrect branch name validation"
     echo -e "\e[31m[ERROR]\e[0m Branches must start with feature"
-    exit 0
+    exit 1
   fi
 }
 
