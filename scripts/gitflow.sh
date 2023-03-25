@@ -2,7 +2,7 @@
 
 script_gitflow_validate_branch_name() {
   echo -e "\e[32m[INFO]\e[0m Run script_gitflow_validate_branch_name"
-  echo -e "\e[38;5;208m[DEBUG]\e[0m Branch name: $GITHUB_HEAD_REF"
+  echo -e "\e[33m[DEBUG]\e[0m Branch name: $GITHUB_HEAD_REF"
 
   if [[ $GITHUB_HEAD_REF =~ ^feature/.* ]]; then
     echo -e "\e[32m[INFO]\e[0m Correct branch name validation"

@@ -12,3 +12,11 @@ runs:
         GITHUB_REF_NAME: ${{inputs.GITHUB_REF_NAME}}
       shell: bash
       run: cd .shelltool && make gitflow_event
+    - name: Installing node
+      uses: actions/setup-node@v1
+    - name: Install React Native CLI
+      shell: bash
+      run: cd .. && yarn global add react-native-cli
+    - name: Install yarn dependencies
+      shell: bash
+      run: yarn install
