@@ -1,9 +1,6 @@
 name: Firebase Distribution Action
 description: Deploy to Firebase Distribution
 inputs:
-  GITHUB_REF_NAME:
-    required: true
-    description: GITHUB_REF_NAME
   FIREBASE_APP_ID_ANDROID:
     required: true
     description: FIREBASE_APP_ID_ANDROID
@@ -14,8 +11,6 @@ runs:
   using: "composite"
   steps:
     - name: Validating gitflow
-      env:
-        GITHUB_REF_NAME: ${{inputs.GITHUB_REF_NAME}}
       shell: bash
       run: cd .shelltool && make gitflow_event
     - name: Installing node
@@ -43,3 +38,4 @@ runs:
         serviceCredentialsFileContent: ${{inputs.FIREBASE_CREDENTIAL_FILE_CONTENT}}
         groups: android_testers
         file: android/app/build/outputs/apk/debug/app-debug.apk
+        releaseNotes: ${{github.head_ref}} which was created by ${{github.actor}}
