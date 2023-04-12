@@ -23,19 +23,15 @@ runs:
     - name: Installing dependencies
       shell: bash
       run: yarn install
-    - name: Building bundle
-      shell: bash
-      run: |
-        yarn react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
     - name: Building apk
       shell: bash
       run: |
-        cd android && chmod +x ./gradlew && export VERSION_NAME=${{github.head_ref}} VERSION_CODE=${{github.run_number}} && ./gradlew assembleDebug
+        cd android && chmod +x ./gradlew && export VERSION_NAME=${{github.head_ref}} VERSION_CODE=${{github.run_number}} && ./gradlew assembleRelease
     - name: Upload apk to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
         appId: ${{inputs.FIREBASE_APP_ID_ANDROID}}
         serviceCredentialsFileContent: ${{inputs.FIREBASE_CREDENTIAL_FILE_CONTENT}}
         groups: android_testers
-        file: android/app/build/outputs/apk/debug/app-debug.apk
+        file: android/app/build/outputs/apk/release/app-release.apk
         releaseNotes: ${{github.head_ref}} was created by ${{github.actor}}
